@@ -27,10 +27,14 @@ public class MyClassLoader extends ClassLoader {
     private static final Integer KEY = 255;
 
 
+
     public static void main(String args[]) {
+        String resourcePath="Hello.xlass";
+        String className="Hello";
+        String methodName="hello";
         MyClassLoader myClassLoader = new MyClassLoader();
-        myClassLoader.readEncryptedFile("Hello.xlass");
-        myClassLoader.invoke("Hello", "hello");
+        myClassLoader.readEncryptedFile(resourcePath);
+        myClassLoader.invoke(className, methodName);
     }
 
 
@@ -60,9 +64,11 @@ public class MyClassLoader extends ClassLoader {
             if (inputStream == null) {
                 return;
             }
+
             while ((content = inputStream.read()) != -1) {
                 //获取255-x后的值
                 int revertByteInt = decrypt(content);
+                //动态数组存储解密后的byte值
                 bytesArray.add((byte) revertByteInt);
             }
 
